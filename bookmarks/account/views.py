@@ -49,11 +49,13 @@ def register(request):
             nuevo_usuario.save()
             # Create the user profile
             Profile.objects.create(usuario=nuevo_usuario)
+            messages.success(request, 'Su cuenta ha sido Creada con exito')
             return render(request,
                       template_name = 'account/register_done.html',
-                      context       =  {'nuevo_ususario': nuevo_usuario})
+                      context       =  {'nuevo_usuario': nuevo_usuario})
         else:
-             return render(request,
+            messages.error(request , 'Error al crear su cuenta')
+            return render(request,
                       template_name = 'account/register.html',
                       context       = {'formulario_usuario': formulario_usuario})
     else:

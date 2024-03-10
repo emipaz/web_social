@@ -39,6 +39,15 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model  = User
         fields = ['first_name', 'last_name', 'email']
+        
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        qs = User.objects.exclude(id=self.instance.id)\
+                     .filter(email=data)
+        if qs.exists():
+            self.add_error("email", 
+                forms.ValidationError(f'El mail {data} ya se encuentra registrado.'))
+        return data
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:
