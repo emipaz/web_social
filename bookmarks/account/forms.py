@@ -24,6 +24,13 @@ class FormularioRegistroUsuario(forms.ModelForm):
             # raise forms.ValidationError("Las contrasenias no coinciden")
         return  cd["contraseña2"]
     
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        if User.objects.filter(email=data).exists():
+            self.add_error("email", 
+                forms.ValidationError(f'El mail {data} ya se encuentra registrado.'))
+        return data
+    
     
     
     
