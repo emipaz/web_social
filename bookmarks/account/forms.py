@@ -15,12 +15,18 @@ class FormularioRegistroUsuario(forms.ModelForm):
         model = User
         fields = ['username','email','first_name','last_name']
         
-    def limpiar_contraseña(self):
-        
-        cd = self.clean_data
+    def clean_contraseña2(self):
+        cd = self.cleaned_data
         if cd['contraseña'] != cd['contraseña2']:
-            raise forms.ValidationError("Las contrasenias no coinciden")
-        return cd["contraseña"]
+            self.add_error('contraseña', 
+                           forms.ValidationError('Las contraseñas no coinciden.'))
+            #self.add_error('contraseña2', "Las contraseñas no coinciden")
+            # raise forms.ValidationError("Las contrasenias no coinciden")
+        return  cd["contraseña2"]
+    
+    
+    
+    
     
 class UserEditForm(forms.ModelForm):
     class Meta:

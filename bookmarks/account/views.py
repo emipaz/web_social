@@ -48,10 +48,14 @@ def register(request):
             # Save the User object
             nuevo_usuario.save()
             # Create the user profile
-            Profile.objects.create(user=nuevo_usuario)
+            Profile.objects.create(usuario=nuevo_usuario)
             return render(request,
                       template_name = 'account/register_done.html',
                       context       =  {'nuevo_ususario': nuevo_usuario})
+        else:
+             return render(request,
+                      template_name = 'account/register.html',
+                      context       = {'formulario_usuario': formulario_usuario})
     else:
         formulario_usuario = FormularioRegistroUsuario()
         return render(request,
