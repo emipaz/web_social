@@ -147,3 +147,7 @@ PASSWORD_HASHERS = [
 'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 'django.contrib.auth.hashers.ScryptPasswordHasher',
 ]
+# carpetas de media
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
